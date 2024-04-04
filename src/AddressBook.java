@@ -26,6 +26,9 @@ public class AddressBook {
         contacts = new ArrayList<Contact>();
     }
 
+    /**
+     * Add a new contact to the contacts list.
+     */
     public void addNewContact() {
         System.out.println();
         System.out.println("--- Adding new contact ---");
@@ -71,6 +74,9 @@ public class AddressBook {
         System.out.println();
     }
 
+    /**
+     * The main function from which the application starts.
+     */
     public void run() {
         System.out.println();
         System.out.println("-----------------------");

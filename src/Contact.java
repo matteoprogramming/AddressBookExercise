@@ -27,6 +27,12 @@ public class Contact {
         this.mail = mail;
     }
 
+    /**
+     * The constructor of Contact
+     * @param name the name of the contact
+     * @param number the telephone number
+     * @param mail the mail
+     */
     public Contact(String name, PhoneNumber number, Mail mail) {
         this.name = name;
         this.number = number;
