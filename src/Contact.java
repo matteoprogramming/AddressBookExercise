@@ -1,7 +1,7 @@
 public class Contact {
     private String name;
-    private PhoneNumber number;
-    private Mail mail;
+    private String number;
+    private String mail;
 
     public String getName() {
         return name;
@@ -11,19 +11,19 @@ public class Contact {
         this.name = name;
     }
 
-    public PhoneNumber getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(PhoneNumber number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
-    public Mail getMail() {
+    public String getMail() {
         return mail;
     }
 
-    public void setMail(Mail mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
@@ -33,14 +33,18 @@ public class Contact {
      * @param number the telephone number
      * @param mail the mail
      */
-    public Contact(String name, PhoneNumber number, Mail mail) {
+    public Contact(String name, String number, String mail) {
         this.name = name;
         this.number = number;
         this.mail = mail;
     }
 
     public void printInfo() {
-        System.out.println(name + " -- >  " + number.getPhoneNumber() + "  mail: " + mail.getMail());
+        System.out.println(name + " -- >  " + number + "  mail: " + mail);
     }
 
+
+    public String allString() {
+        return number+";"+name+";"+mail+"\n";
+    }
 }

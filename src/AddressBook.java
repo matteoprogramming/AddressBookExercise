@@ -1,10 +1,15 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
+    private ContactDAOT daot = new ContactDAOT();
+
     private List<Contact> contacts;
     private Contact myPhone;
+
+    public AddressBook() {
+        this.contacts = daot.listContact();
+    }
 
     public List<Contact> getContacts() {
         return contacts;
@@ -22,9 +27,6 @@ public class AddressBook {
         this.myPhone = myPhone;
     }
 
-    public AddressBook(){
-        contacts = new ArrayList<Contact>();
-    }
 
     /**
      * Add a new contact to the contacts list.
@@ -40,9 +42,9 @@ public class AddressBook {
         System.out.print("Enter contact email> ");
         String email = scanner.nextLine();
         System.out.println();
-
-        Contact newContact = new Contact(name, new PhoneNumber(phoneNumber), new Mail(email));
+        Contact newContact = new Contact(name, phoneNumber, email);
         contacts.add(newContact);
+        daot.add(newContact);
         System.out.println("Contact added successfully!");
         System.out.println("---------------------------");
     }
