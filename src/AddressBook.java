@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,21 +29,24 @@ public class AddressBook {
     }
 
 
-    /**
-     * Add a new contact to the contacts list.
-     */
-    public void addNewContact() {
-        System.out.println();
-        System.out.println("--- Adding new contact ---");
+    public Contact getContactFromUser(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter contact name> ");
         String name = scanner.nextLine();
         System.out.print("Enter contact phone number (with prefix) [eg: +39 3434234309]> ");
-        String phoneNumber = scanner.nextLine();
-        System.out.print("Enter contact email> ");
-        String email = scanner.nextLine();
+        String number = scanner.nextLine();
+        System.out.print("Enter contact e-mail> ");
+        String mail = scanner.nextLine();
         System.out.println();
-        Contact newContact = new Contact(name, phoneNumber, email);
+        return new Contact(name, number, mail);
+    }
+
+    /**
+     * Add a new contact to the contacts list.
+     */
+    public void addNewContact() {
+        System.out.println("--- Adding new contact ---");
+        Contact newContact = getContactFromUser();
         contacts.add(newContact);
         daot.add(newContact);
         System.out.println("Contact added successfully!");
@@ -51,7 +55,7 @@ public class AddressBook {
 
     public void printAllContacts(){
         System.out.println("--- All contacts ---");
-        int i = 0;
+        int i = 1;
         for (Contact contact : contacts){
             System.out.print(i + ")  ");
             contact.printInfo();
@@ -76,6 +80,20 @@ public class AddressBook {
         System.out.println();
     }
 
+    private void removeContact() {
+        System.out.println("---  Remove a contact  ---");
+        Contact remContact = getContactFromUser();
+        //daot.remove(remContact);
+        if (contacts.contains(remContact)){
+            daot.remove(remContact);
+            contacts.remove(remContact);
+            System.out.println("Contact removed successfully!");
+        } else {
+            System.out.println("Error... contact not found!");
+        }
+        System.out.println("---------------------------");
+    }
+
     /**
      * The main function from which the application starts.
      */
@@ -92,6 +110,7 @@ public class AddressBook {
             System.out.println("1  - Add a contact");
             System.out.println("2  - Print all contacts");
             System.out.println("3  - Search name");
+            System.out.println("4  - Remove contact");
             System.out.print("Choose the desired option: (0 to exit)> ");
             chose = sc.nextInt();
             System.out.println();
@@ -100,6 +119,7 @@ public class AddressBook {
                 case 1 -> addNewContact();
                 case 2 -> printAllContacts();
                 case 3 -> getNumberFromName();
+                case 4 -> removeContact();
                 default -> System.out.println("Error... INVALID INPUT");
             }
         } while (chose != 0);
