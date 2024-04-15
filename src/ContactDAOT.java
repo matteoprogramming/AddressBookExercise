@@ -41,18 +41,18 @@ public class ContactDAOT {
     public void remove(Contact c) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt")); // File temporaneo
+            BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
-                String name = parts[0].trim(); // Rimuovi spazi bianchi aggiuntivi
+                String name = parts[0].trim();
                 String number = parts[1].trim();
                 String mail = parts[2].trim();
                 if (!name.equals(c.getName()) || !number.equals(c.getNumber()) || !mail.equals(c.getMail())) {
                     writer.write(line + "\n");
                 } else {
-                    writer.write("#" + line + "\n"); // Contrassegna la riga con un cancelletto
+                    writer.write("#" + line + "\n");
                 }
             }
 
