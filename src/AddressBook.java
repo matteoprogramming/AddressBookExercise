@@ -55,6 +55,9 @@ public class AddressBook {
 
     public void printAllContacts(){
         System.out.println("--- All contacts ---");
+        if (contacts.isEmpty()){
+            System.out.println("There are no contacts!");
+        }
         int i = 1;
         for (Contact contact : contacts){
             System.out.print(i + ")  ");
@@ -94,6 +97,66 @@ public class AddressBook {
         System.out.println("---------------------------");
     }
 
+    public void modifyContact(){
+        System.out.println("----- Modify contact -----");
+        if (!contacts.isEmpty()) {
+            System.out.println();
+            System.out.println("Enter the current dates of the contact to modify");
+            Contact mcontact = getContactFromUser();
+            if (contacts.contains(mcontact)) {
+                short chose = 0;
+                var sc = new Scanner(System.in);
+                String name = mcontact.getName();
+                String number = mcontact.getNumber();
+                String mail = mcontact.getMail();
+                do {
+                    System.out.println();
+                    System.out.println("Choose:");
+                    System.out.println("1) name");
+                    System.out.println("2) number");
+                    System.out.println("3) mail");
+                    System.out.print("Enter the number of the date that you want to modify (0 to exit)> ");
+                    chose = sc.nextShort();
+                    sc.nextLine();
+                    System.out.println();
+                    switch (chose) {
+                        case 0 -> {
+                            System.out.println("Exiting ...");
+                        }
+                        case 1 -> {
+                            System.out.print("Enter the new name> ");
+                            name = sc.nextLine();
+                        }
+                        case 2 -> {
+                            System.out.print("Enter the new number> ");
+                            number = sc.nextLine();
+                        }
+                        case 3 -> {
+                            System.out.print("Enter the new mail> ");
+                            mail = sc.nextLine();
+                        }
+                        default -> System.out.println("Error... INVALID INPUT");
+                    }
+                } while (chose != 0);
+                contacts.remove(mcontact);
+                Contact newContact = new Contact(name, number, mail);
+                contacts.remove(mcontact);
+                contacts.add(newContact);
+                //As we want to keep the old information we implement this by "deleting" the old and adding the new
+                daot.add(newContact);
+                daot.remove(mcontact);
+                newContact.printInfo();
+                System.out.println();
+                System.out.println("Contact modify successuly!");
+            } else {
+                System.out.println("Sorry contact not found!");
+            }
+        } else {
+            System.out.println("There are no contacts, you can't modify anything!");
+        }
+        System.out.println("-------------------------");
+    }
+
     /**
      * The main function from which the application starts.
      */
@@ -111,6 +174,7 @@ public class AddressBook {
             System.out.println("2  - Print all contacts");
             System.out.println("3  - Search name");
             System.out.println("4  - Remove contact");
+            System.out.println("5  - Modify a contact");
             System.out.print("Choose the desired option: (0 to exit)> ");
             chose = sc.nextInt();
             System.out.println();
@@ -120,6 +184,7 @@ public class AddressBook {
                 case 2 -> printAllContacts();
                 case 3 -> getNumberFromName();
                 case 4 -> removeContact();
+                case 5 -> modifyContact();
                 default -> System.out.println("Error... INVALID INPUT");
             }
         } while (chose != 0);
